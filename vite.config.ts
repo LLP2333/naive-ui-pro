@@ -99,12 +99,19 @@ export default defineConfig(({ mode }) => {
       transformer: 'lightningcss',
     },
     server: {
+      port: 5174,
       host: true,
       proxy: {
         '/iconify': {
           target: 'https://api.iconify.design',
           changeOrigin: true,
           rewrite: path => path.replace(/^\/iconify/, ''),
+        },
+        // 代理后端API请求
+        '/api': {
+          target: 'http://localhost:9000',
+          changeOrigin: true,
+          rewrite: path => path.replace(/^\/api/, ''),
         },
       },
     },
